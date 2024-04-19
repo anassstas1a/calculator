@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include <stack>
+#include<string>
 bool isOperator(char c)
 {
     return c == '+' || c == '-' || c == '*' || c == '/';
@@ -55,9 +56,61 @@ std::string infixToRPN(const std::string& expression)
     return output;
 }
 
-int main()
+double evaluateRPN(const std::string& rpn)
 {
-    std::string s = "3 * 10 + 5 - 100 / 2";
-    std::string result = infixToRPN(s);
-    std::cout << result;
+    std::stack<double> operands;
+    size_t pos = 0;
+    while (pos < rpn.size())
+    {
+        if (rpn[pos] == ' ')
+        { ++pos; continue; }
+
+        std::string token;
+        while (pos < rpn.size() && rpn[pos] != ' ')
+            token += rpn[pos++];
+
+        if (isOperand(token[0]))
+            operands.push(std::stod(token));
+
+        else if (isOperator(token[0]))
+        {
+            double secondOperand = operands.top();
+            operands.pop();
+            double firstOperand = operands.top();
+            operands.pop();
+            char op = token[0];
+
+            double result;
+            switch (op)
+            {
+            case '+':
+                result = firstOperand + secondOperand;
+                break;
+            case '-':
+                result = firstOperand - secondOperand;
+                break;
+            case '*':
+                result = firstOperand * secondOperand;
+                break;
+            case '/':
+                result = firstOperand / secondOperand;
+                break;
+            }
+            operands.push(result);
+        }
+        ++pos;
+    }
+    return operands.top();
+}
+
+int main()
+{ 
+    setlocale(LC_ALL, "rus");
+    std::string example;
+    std::cout << "Введите математический пример (между операндами и операторами пробел): ";
+    getline(std::cin, example);
+    std::string RPN = infixToRPN(example);
+    double answer = evaluateRPN(RPN);
+    std::cout << "Ответ: " << answer;
+    
 }
