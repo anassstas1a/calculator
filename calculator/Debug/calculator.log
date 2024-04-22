@@ -1,3 +1,4 @@
 ﻿  calculator.cpp
+C:\Users\anast\source\repos\calculator\calculator\calculator.cpp(135,12): warning C4244: return: преобразование "double" в "int", возможна потеря данных
 C:\Users\anast\source\repos\calculator\calculator\calculator.cpp(18): warning C4715: precedence: значение возвращается не при всех путях выполнения
   calculator.vcxproj -> C:\Users\anast\source\repos\calculator\Debug\calculator.exe
