@@ -138,5 +138,6 @@ int Сalculate()
 
 int main()
 {
+
 	Сalculate();
 }
